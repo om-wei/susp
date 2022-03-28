@@ -11,6 +11,7 @@ int8_t read_key(void)
 	unsigned char i, j;
 	uint8_t r = -1;
 	
+	//高四位输出 低电平，低四位输入 带上拉电阻
 	DDRKEY = 0xf0;           
 	PORTKEY = 0x0f;         
 	
@@ -31,6 +32,8 @@ int8_t read_key(void)
 			} 
 		}
 	}
+
+	PORTKEY = 0x0f;         
 	while ((PINKEY & 0x0f) != 0x0f);	//松手检测
 	return r;
 }
